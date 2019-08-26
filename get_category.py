@@ -27,22 +27,21 @@ def get_city(url):
 
 
 def get_city_parse(html):
-    pattern = re.compile('<li.*?react.*?select.*?href="(.*?)".*?>(.*?)</a>', re.S)
+    pattern = re.compile('<dd.*?<a.*?href="(.*?)".*?list-item>.*?>', re.S)
     #pattern = re.compile('<h4.*?A.*?href="(.*?)".*?>(.*?)</a>', re.S)
     results = re.findall(pattern, html)
     for result in results:
         yield{
-            'url':result[0],
-            'city_name':result[1]
+            'url':result
         }
 
 def write_to_file(content):
-    with open('result.txt', 'a', encoding='utf-8') as f:
+    with open('category_url.txt', 'a', encoding='utf-8') as f:
         f.write(json.dumps(content, ensure_ascii=False) + '\n')
 
 def main():
-    for i in range(65,91):
-        url = 'http://i.meituan.com/index/changecity/more/' + chr(i) + '?cevent=imt%2FselectCity%2Fmore'
+    for i in range(1,500):
+        url = 'https://i.meituan.com/anshan/all/?p=' + str(i) + '&stid_b=3'
         html = get_city(url)
         #print(html)
         for item in get_city_parse(html):
