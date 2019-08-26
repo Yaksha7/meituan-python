@@ -4,8 +4,9 @@ import json
 from requests.exceptions import RequestException
 import time
 
-def get_city(url):
+def get_city():
     try:
+        url = 'https://i.meituan.com/anshan/all/?p=1'
         r = requests.get(url)
         if r.status_code == 200:
             return r.text
@@ -22,6 +23,11 @@ def get_city_parse(html):
         yield{
             'url': result
         }
+
+def get_next_page(url):
+    page = get_city(url)
+    pattern = re.compile('<span.*?pager-current.*?<a.*?href="(.*?)".*?</a>', re.S)
+    page = re.findall(pattern, page)
 
 def write_to_file(content):
     with open('category_url.txt', 'a', encoding='utf-8') as f:
