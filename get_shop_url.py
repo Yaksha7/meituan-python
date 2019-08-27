@@ -10,10 +10,12 @@
 import requests
 import re
 from pyquery import PyQuery as pq
+from bs4 import BeautifulSoup
+import lxml
 
 url = 'https://www.meituan.com/changecity/'
 r = requests.get(url, verify=False)
-html = pq(r.text)
-cities = html('.cites a').items()
-for city in cities:
-    print(city)
+html = BeautifulSoup(r.text, 'lxml')
+city_groups = html.findAll("span", {"class": "cities"})
+for city_group in city_groups:
+    print(city_group.get_text() + '\n')
