@@ -13,9 +13,10 @@ from pyquery import PyQuery as pq
 from bs4 import BeautifulSoup
 import lxml
 
-url = 'https://www.meituan.com/changecity/'
+url = 'https://as.meituan.com/'
 r = requests.get(url, verify=False)
 html = BeautifulSoup(r.text, 'lxml')
-city_groups = html.findAll("span", {"class": "cities"})
-for city_group in city_groups:
-    print(city_group.get_text() + '\n')
+print (html)
+# city_groups = html.findAll("span", {"class": "cities"})
+# for city_group in city_groups:
+#     print(city_group.get_text() + '\n')
