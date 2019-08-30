@@ -13,10 +13,18 @@ from pyquery import PyQuery as pq
 from bs4 import BeautifulSoup
 import lxml
 
-url = 'https://as.meituan.com/'
+url = 'https://i.meituan.com/anshan/all/?p=1'
 r = requests.get(url, verify=False)
+
+# print(r.text)
 html = BeautifulSoup(r.text, 'lxml')
-print (html)
+items = html.findAll("dd")
+urls = []
+for item in items:
+    for url in item.findAll("a"):
+        if 'href' in url.attrs:
+            urls.append({"url": url.attrs['href']})
+print(urls)
 # city_groups = html.findAll("span", {"class": "cities"})
 # for city_group in city_groups:
 #     print(city_group.get_text() + '\n')
