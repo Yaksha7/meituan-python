@@ -20,8 +20,8 @@ def get_city_parse(html):
     results = re.findall(pattern, html)
     for result in results:
         yield{
-            'url':result[0],
-            'city_name':result[1]
+            'url': result[0],
+            'city_name': result[1]
         }
 
 def write_to_file(content):

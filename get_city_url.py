@@ -26,6 +26,7 @@ def get_city(url):
 # r = requests.get(url, verify=False)
 def get_city_parse(html):
     BsObj = BeautifulSoup(html, 'lxml')
+    print(BsObj)
     city_groups = []
     for span in BsObj.findAll("span", {"class": "cities"}):
         for city_group in span.findAll("a"):
