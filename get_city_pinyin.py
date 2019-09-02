@@ -23,7 +23,8 @@ e = d['openCityList']
 for i in range(0,22):
     lists = e[i][1]
     for list in lists:
-        print({list['pinyin']: list['name']})
+        f = {list['pinyin']: list['name']}
+print(f)
     #print({e[i][1][0]['pinyin']: e[i][1][0]['name']})
 # f = json.loads(e, encoding='utf-8')
 # print(f)
