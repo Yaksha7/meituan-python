@@ -39,7 +39,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.get_city_url">
+  <component name="RunManager" selected="Python.login">
     <configuration name="1" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="meituan-python" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -124,7 +124,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="shop_deatail" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="login" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="meituan-python" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -136,7 +136,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/shop_deatail.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/login.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -147,11 +147,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.login" />
         <item itemvalue="Python.get_city_url" />
         <item itemvalue="Python.get_city_pinyin" />
         <item itemvalue="Python.1" />
         <item itemvalue="Python.get_category" />
-        <item itemvalue="Python.shop_deatail" />
       </list>
     </recent_temporary>
   </component>
