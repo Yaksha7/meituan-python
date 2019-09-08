@@ -6,6 +6,12 @@ import time
 from requests.exceptions import RequestException
 from urllib.parse import urlencode
 
+proxy = '18218147779:quan381104156@112.85.164.8:9999'
+proxies = {
+    'http': 'http://' + proxy,
+    'https': 'https://' + proxy,
+}
+
 params = {
         'cityName': '青岛',
         'cateId': 0,
@@ -14,31 +20,41 @@ params = {
         'dinnerCountAttrId': '',
         'page': 1,
         'userId': '236535115',
-        'uuid': '4cbc619a4c2340bb84bc.1567570779.1.0.0',
+        'uuid': '4b0b141df32342e9b649.1567935195.1.0.0',
         'platform': 1,
         'partner': 126,
         'originUrl': 'https://qd.meituan.com/meishi/',
         'riskLevel': 1,
         'optimusCode': 10,
-        '_token': 'eJxVkNFumzAARf/FD3sJCgYMhEjTFArbSJMSCklKpmkCY4hTIMTYIUm1f5+ntlL7dK+vz8OxXwALCjDVIHQgVMCZMDAF2hiOLaAA3ssb07JNW9dNB1qaAvDnTTMcBeRs44HpL82wLEWDOvr9f3qUy8fpY9eR8koFEgJ7zrt+qqqnYtwQykXWjvGxUWXv91TtWl2VKu9Ql/V9d2T8E5phfBQtV3uCj20h30DL6zdGJNj25A8+FuQr1IhpwUluwglCBSR5WZYos4zMyLNSJ+UXRk6C9PyVJpMSEumqIQMhHRo5hsjIECFOoRcOIkDKN4mUl/n8ltlb8vfzUv6kNO9p1cpG5kN9S3joen7kPtzZeehF50u76v0qhP4uoMHgkfDScPvp4BlpTrciCqjtthFF7nrnO+k81vD3DV6VbizSYkhGkbE3C3d1vo1K23Gwf9dViVb/FDS0Aiukw9PAD/l9RIaYzfEkvXUnYutRnWTscXau1sXMoualtZZpvsfr+bZ16UF4Wrw8HTYNc5aLe1tUpqZXm5NDhafO7keGt6jjG/NKNHLyOL3G+3obTlI7HIyzRQ+NrZMdq/mDumpEslhkdWayZyJEmFwnM/4D+70P/v4DwUfCdA=='
+        '_token': 'eJx1j8uSokAQRf+lthBWFW+NmAWjIs8OBcTHRC+wUCkRBApEe2L+faqj7cUsZnVvnsy8kfkbtE4GJhihMUIiuB9bMAF4hEYaEEHHeEfV9LGKDVVGkiIC8i/DmC8d2mQGJr+wKmuirOP3TxJy8EUMTXkXX1bilqd8Cjg4fATkXVezCYRNNiqPtOvTakRuJeSe5RTyG/4zAHhCGfMErsVL05d233XAf+ERjJ4r7o7ucL2scT9czFV+hNOhuNtx752TpTNlab3OCPlpzz7Mxp9nj/7N2zpBp+Q+oauNPFjJVh8vYwEXqnk/1W3o6g9oLp9udreMqaB3p0p57ozHmaI42j7z+tqETWQF+8iIQ40l1Anti92n/q5SaQLfAnn/HGbOY71RY21RV3O4o8E6S7W5R/YS6nN5HlyY4Jpt4rIBbqHpE2FDqIdui5MuSKUyVJmdUstfSbIaFYKGl3LYYZ0McRHAqJQW4ySf3VQr9Zrr5jBkLIrPP8Cfv4I+lZ8='
     }
     #print(page)
 
 headers = {
-    'Accept': 'application/json',
-    'Accept-Encoding': 'gzip, deflate, br',
-    'Accept-Language': 'zh-CN,zh;q=0.9',
-    'Connection': 'keep-alive',
-    'Cookie': '_lxsdk_cuid=16c4b9f13d7c8-0c17e1cb45fd8f-c343162-144000-16c4b9f13d7c8; rvct=60%2C197%2C1; iuuid=8113DB0E3DA03E5994CDB6BBFC762FDCA4EB25E21481B4ECE3253168F1DCEB81; _lxsdk=8113DB0E3DA03E5994CDB6BBFC762FDCA4EB25E21481B4ECE3253168F1DCEB81; _hc.v=9cb58b8d-67a3-eb79-f4ec-86afda73b704.1564653381; __utmz=74597006.1565832626.7.4.utmcsr=baidu|utmccn=(organic)|utmcmd=organic; a2h=4; cityname=%E9%9E%8D%E5%B1%B1; mtcdn=K; lsu=; webp=1; __utma=74597006.739706182.1564653304.1567397719.1567484632.20; i_extend=H__a100001__b20; latlng=36.078829,120.388789,1567484886315; ci=60; client-id=df464bca-ace0-4a7e-ac9f-2e9548fe949e; uuid=4cbc619a4c2340bb84bc.1567570779.1.0.0; _lx_utm=utm_source%3DBaidu%26utm_medium%3Dorganic; __mta=55425556.1564653277490.1567484921701.1567570782360.3; userTicket=lWRzlGJBHCRnVRVpJskTVCwqmYzwddKThTclKlMM; u=236535115; n=Yaksha%E4%B8%B6; token2=vTG3DyIuyvg4ydKbttBVk02w-14AAAAA-ggAAGEiXg2eiLx1KkhIFR6CjwPEkVkey7xMdN7adQRdJgXAznkSnRc4jcNPy8IM3dPe6w; lt=vTG3DyIuyvg4ydKbttBVk02w-14AAAAA-ggAAGEiXg2eiLx1KkhIFR6CjwPEkVkey7xMdN7adQRdJgXAznkSnRc4jcNPy8IM3dPe6w; unc=Yaksha%E4%B8%B6; _lxsdk_s=16cfac33a8a-92c-490-bfc%7C%7C3',
-    'Host': 'qd.meituan.com',
-    'Referer': 'https://qd.meituan.com/meishi/pn2/',
-    'Sec-Fetch-Mode': 'cors',
-    'Sec-Fetch-Site': 'same-origin',
-    'User-Agent': 'Mozilla/5.0 (iPad; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) Version/11.0 Mobile/15A5341f Safari/604.1'
+        'Accept': 'application/json',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Accept-Language': 'zh-CN,zh;q=0.9',
+        'Connection': 'keep-alive',
+        'Cookie': 'iuuid=CFAE3B470A1F80B4D7C7BC658D2B8D38382CE891323DFF9333978C3D338869AC; _lxsdk_cuid=16cc6c1849f6c-0beb5e26d8ad7f-7373e61-144000-16cc6c184a0c8; _lxsdk=CFAE3B470A1F80B4D7C7BC658D2B8D38382CE891323DFF9333978C3D338869AC; webp=1; __utmz=74597006.1566702667.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); cityname=%E9%9E%8D%E5%B1%B1; _hc.v=475771b6-9612-da2e-7506-680f1d29407a.1566705266; a2h=4; __utma=74597006.1755981119.1566702667.1567323028.1567323129.7; i_extend=H__a100001__b7; uuid=4b0b141df32342e9b649.1567935195.1.0.0; _lx_utm=utm_source%3DBaidu%26utm_medium%3Dorganic; client-id=9fd7f393-ea75-48d7-a712-21483755d239; mtcdn=K; lat=36.169136; lng=120.426643; u=236535115; n=Yaksha%E4%B8%B6; lt=offCndiK44GkoZRrP1_A1M0PODwAAAAADwkAAK9jPT8Pz3edhJHQ2DnnNEbHnfdqrTHpvS25dKUb9TgAgpvMtW4JY-PQEq4lRegyFw; lsu=; token2=offCndiK44GkoZRrP1_A1M0PODwAAAAADwkAAK9jPT8Pz3edhJHQ2DnnNEbHnfdqrTHpvS25dKUb9TgAgpvMtW4JY-PQEq4lRegyFw; unc=Yaksha%E4%B8%B6; ci=60; rvct=60%2C664%2C1283%2C1%2C151%2C675; __mta=51276182.1567935218963.1567935218963.1567951847038.2; _lxsdk_s=16d112746b8-43d-e2d-941%7C%7C13',
+        'Host': 'qd.meituan.com',
+        'Referer': 'https://qd.meituan.com/meishi/',
+        'Sec-Fetch-Mode': 'cors',
+        'Sec-Fetch-Site': 'same-origin',
+        'User-Agent': 'Mozilla/5.0 (iPad; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) Version/11.0 Mobile/15A5341f Safari/604.1'
 }
 url = 'https://qd.meituan.com/meishi/api/poi/getPoiList?' + urlencode(params)
+print(url)
+response = requests.get(url, headers=headers, proxies=proxies, verify=False)
+# print(response.json())
+shops = response.json()
+print(shops)
+items = shops['data']['totalCounts']
+page = items//15+1
+print(page)
+if items:
+    for item in items:
+        shop_id = item['poiId']
+        shop_url = 'https://www.meituan.com/meishi/' + str(shop_id)
+        print(shop_url)
 
-response = requests.get(url, headers=headers, verify=False)
-print(response.status_code)
-# shops = r.json()
-# print(shops('data'))
+#print(shops['data'])
