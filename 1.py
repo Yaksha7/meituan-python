@@ -6,8 +6,8 @@ import time
 from requests.exceptions import RequestException
 from urllib.parse import urlencode
 
-def get_city(url):
-    proxy = '18218147779:quan381104156@112.85.164.8:9999'
+def get_city(page):
+    proxy = '18218147779:quan381104156@123.101.141.46:9999'
     proxies = {
         'http': 'http://' + proxy,
         'https': 'https://' + proxy,
@@ -24,10 +24,28 @@ def get_city(url):
         'Sec-Fetch-Site': 'same-origin',
         'User-Agent': 'Mozilla/5.0 (iPad; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) Version/11.0 Mobile/15A5341f Safari/604.1'
     }
+    params = {
+        'cityName': '青岛',
+        'cateId': 0,
+        'areaId': 0,
+        'sort': '',
+        'dinnerCountAttrId': '',
+        'page': page,
+        'userId': '236535115',
+        'uuid': '4b0b141df32342e9b649.1567935195.1.0.0',
+        'platform': 1,
+        'partner': 126,
+        'originUrl': 'https://qd.meituan.com/meishi/',
+        'riskLevel': 1,
+        'optimusCode': 10,
+        '_token': 'eJx1j8uSokAQRf+lthBWFW+NmAWjIs8OBcTHRC+wUCkRBApEe2L+faqj7cUsZnVvnsy8kfkbtE4GJhihMUIiuB9bMAF4hEYaEEHHeEfV9LGKDVVGkiIC8i/DmC8d2mQGJr+wKmuirOP3TxJy8EUMTXkXX1bilqd8Cjg4fATkXVezCYRNNiqPtOvTakRuJeSe5RTyG/4zAHhCGfMErsVL05d233XAf+ERjJ4r7o7ucL2scT9czFV+hNOhuNtx752TpTNlab3OCPlpzz7Mxp9nj/7N2zpBp+Q+oauNPFjJVh8vYwEXqnk/1W3o6g9oLp9udreMqaB3p0p57ozHmaI42j7z+tqETWQF+8iIQ40l1Anti92n/q5SaQLfAnn/HGbOY71RY21RV3O4o8E6S7W5R/YS6nN5HlyY4Jpt4rIBbqHpE2FDqIdui5MuSKUyVJmdUstfSbIaFYKGl3LYYZ0McRHAqJQW4ySf3VQr9Zrr5jBkLIrPP8Cfv4I+lZ8='
+    }
+    url = 'https://qd.meituan.com/meishi/api/poi/getPoiList?' + urlencode(params)
+    print(url)
     try:
         response = requests.get(url, headers=headers, proxies=proxies, verify=False)
         if response.status_code == 200:
-            #print(response.json())
+            print(response)
             return response
     except RequestException:
         return None
@@ -49,25 +67,7 @@ def write_to_file(content):
 
 def main(pages):
     for page in range(pages+1):
-        params = {
-            'cityName': '青岛',
-            'cateId': 0,
-            'areaId': 0,
-            'sort': '',
-            'dinnerCountAttrId': '',
-            'page': page,
-            'userId': '236535115',
-            'uuid': '4b0b141df32342e9b649.1567935195.1.0.0',
-            'platform': 1,
-            'partner': 126,
-            'originUrl': 'https://qd.meituan.com/meishi/',
-            'riskLevel': 1,
-            'optimusCode': 10,
-            '_token': 'eJx1j8uSokAQRf+lthBWFW+NmAWjIs8OBcTHRC+wUCkRBApEe2L+faqj7cUsZnVvnsy8kfkbtE4GJhihMUIiuB9bMAF4hEYaEEHHeEfV9LGKDVVGkiIC8i/DmC8d2mQGJr+wKmuirOP3TxJy8EUMTXkXX1bilqd8Cjg4fATkXVezCYRNNiqPtOvTakRuJeSe5RTyG/4zAHhCGfMErsVL05d233XAf+ERjJ4r7o7ucL2scT9czFV+hNOhuNtx752TpTNlab3OCPlpzz7Mxp9nj/7N2zpBp+Q+oauNPFjJVh8vYwEXqnk/1W3o6g9oLp9udreMqaB3p0p57ozHmaI42j7z+tqETWQF+8iIQ40l1Anti92n/q5SaQLfAnn/HGbOY71RY21RV3O4o8E6S7W5R/YS6nN5HlyY4Jpt4rIBbqHpE2FDqIdui5MuSKUyVJmdUstfSbIaFYKGl3LYYZ0McRHAqJQW4ySf3VQr9Zrr5jBkLIrPP8Cfv4I+lZ8='
-        }
-        url = 'https://qd.meituan.com/meishi/api/poi/getPoiList?' + urlencode(params)
-
-        html = get_city(url)
+        html = get_city(page)
         items = get_city_parse(html)
         if items:
             for item in items:
@@ -76,27 +76,11 @@ def main(pages):
                 write_to_file(shop_url)
 
 if __name__ == '__main__':
-    params = {
-        'cityName': '青岛',
-        'cateId': 0,
-        'areaId': 0,
-        'sort': '',
-        'dinnerCountAttrId': '',
-        'page': 1,
-        'userId': '236535115',
-        'uuid': '4b0b141df32342e9b649.1567935195.1.0.0',
-        'platform': 1,
-        'partner': 126,
-        'originUrl': 'https://qd.meituan.com/meishi/',
-        'riskLevel': 1,
-        'optimusCode': 10,
-        '_token': 'eJx1j8uSokAQRf+lthBWFW+NmAWjIs8OBcTHRC+wUCkRBApEe2L+faqj7cUsZnVvnsy8kfkbtE4GJhihMUIiuB9bMAF4hEYaEEHHeEfV9LGKDVVGkiIC8i/DmC8d2mQGJr+wKmuirOP3TxJy8EUMTXkXX1bilqd8Cjg4fATkXVezCYRNNiqPtOvTakRuJeSe5RTyG/4zAHhCGfMErsVL05d233XAf+ERjJ4r7o7ucL2scT9czFV+hNOhuNtx752TpTNlab3OCPlpzz7Mxp9nj/7N2zpBp+Q+oauNPFjJVh8vYwEXqnk/1W3o6g9oLp9udreMqaB3p0p57ozHmaI42j7z+tqETWQF+8iIQ40l1Anti92n/q5SaQLfAnn/HGbOY71RY21RV3O4o8E6S7W5R/YS6nN5HlyY4Jpt4rIBbqHpE2FDqIdui5MuSKUyVJmdUstfSbIaFYKGl3LYYZ0McRHAqJQW4ySf3VQr9Zrr5jBkLIrPP8Cfv4I+lZ8='
-    }
-    url = 'https://qd.meituan.com/meishi/api/poi/getPoiList?' + urlencode(params)
     #print(url)
-    response = get_city(url)
+    response = get_city(1)
     #print(pages)
     result = response.json()
+    print(result)
     pages = result['data']['totalCounts']
-    print(pages)
+    # print(type(pages))
     main(pages)
