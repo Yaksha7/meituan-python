@@ -6,7 +6,7 @@ import time
 from requests.exceptions import RequestException
 from urllib.parse import urlencode
 
-def get_city(page):
+def get_city(page, city):
     proxy = '18218147779:quan381104156@123.101.141.46:9999'
     proxies = {
         'http': 'http://' + proxy,
@@ -25,7 +25,7 @@ def get_city(page):
         'User-Agent': 'Mozilla/5.0 (iPad; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) Version/11.0 Mobile/15A5341f Safari/604.1'
     }
     params = {
-        'cityName': '青岛',
+        'cityName': city,
         'cateId': 0,
         'areaId': 0,
         'sort': '',
@@ -67,13 +67,21 @@ def write_to_file(content):
 
 def main(pages):
     for page in range(pages+1):
-        html = get_city(page)
-        items = get_city_parse(html)
-        if items:
-            for item in items:
-                shop_id = item['poiId']
-                shop_url = 'https://www.meituan.com/meishi/' + str(shop_id)
-                write_to_file(shop_url)
+        with open('city_pinyin.txt', 'r', encoding='UTF-8') as f:
+            cities = []
+            for line in f.readlines():
+                a = json.loads(line)
+                for keys, values in a.items():
+                    cities.append(values)
+                    for city in cities:
+                        #print(city)
+                        html = get_city(page, city)
+                        items = get_city_parse(html)
+                        if items:
+                            for item in items:
+                                shop_id = item['poiId']
+                                shop_url = 'https://www.meituan.com/meishi/' + str(shop_id)
+                                write_to_file(shop_url)
 
 if __name__ == '__main__':
     #print(url)
@@ -82,5 +90,6 @@ if __name__ == '__main__':
     result = response.json()
     print(result)
     pages = result['data']['totalCounts']
+    counts = pages//15
     # print(type(pages))
-    main(pages)
+    main(counts)
